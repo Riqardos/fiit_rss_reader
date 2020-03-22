@@ -1,0 +1,65 @@
+{% extends 'rss_reader/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+    {#    <form method="post">#}
+    {#        <div class="form-row">#}
+    {#            {% csrf_token %}#}
+    {#            <div class="form-group col-md-10">#}
+    {#                {{ form.url|as_crispy_field}}#}
+    {#            </div>#}
+    {##}
+    {#            <div class="form-group col-md-2">#}
+    {#                <button type="submit" class="btn btn-primary">Load</button>#}
+    {##}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </form>#}
+
+
+    {% if feed %}
+        {% if feed.entries %}
+            <div class="accordion" id="accordionExample">
+                {% for entry in feed.entries %}
+                    <div class="card">
+                        <div role="button" class="card-header btn text-left " data-toggle="collapse"
+                             data-target="{{ '#collapse' }}{{ forloop.counter }}" aria-expanded="true">
+                            <p class="card-text">{{ entry.title }}</p>
+                            <p class="card-text"><small
+                                    class="text-muted">{{ entry.date|timesince }} ago</small></p>
+
+                        </div>
+
+                        <div id="{{ 'collapse' }}{{ forloop.counter }}" class="collapse"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <img src="{{ entry.img }}" class="card-img" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ entry.title }}</h5>
+                                            <p class="card-text">{{ entry.summary }}</p>
+                                            <p class="card-text"><small
+                                                    class="text-muted">{{ entry.date }}</small></p>
+                                            <a href="{{ entry.link }}" target="_blank" class="btn btn-secondary">Visit
+                                                page</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+        <h1>Nothing is loaded</h1>
+    {% endif %}
+
+
+{% endblock %}
