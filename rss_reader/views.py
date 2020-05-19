@@ -2,10 +2,11 @@ import calendar
 from datetime import datetime
 from django.shortcuts import render
 import feedparser
+from htmlmin.decorators import minified_response
 
 
 # Create your views here.
-
+@minified_response
 def view_rss(request):
     feed = {}
 
