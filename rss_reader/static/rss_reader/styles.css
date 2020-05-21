@@ -3,6 +3,7 @@
 }
 
 div.card-header:hover{
-    background-color: #343a4026;
+    background-color: #343a40;
+    color:white;
 }
 
